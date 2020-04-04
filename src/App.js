@@ -1,6 +1,6 @@
 import React from "react";
 import Addtodo from "./Component/Addtodo";
-// import Todo from "./Component/Todo";
+import Todo from "./Component/Todo";
 import "./App.css";
 
 class App extends React.Component {
@@ -14,16 +14,19 @@ class App extends React.Component {
     */
     todo: []
   };
-  handleClick = title => {
-    this.setState({
-      todo: [...this.state.todo, { id: new Date().getTime(), title: title }]
-    });
+
+  handleClick = task => {
+    if (task != "")
+      this.setState({
+        todo: [...this.state.todo, { id: new Date().getTime(), todo: task }]
+      });
   };
+
   render() {
     return (
       <div>
         <Addtodo addTask={this.handleClick} />
-        {/* <Todo values={this.state.todo} /> */}
+        <Todo taskDetails={this.state.todo} />
       </div>
     );
   }
