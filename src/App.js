@@ -16,6 +16,19 @@ class App extends React.Component {
     todo: [],
   };
 
+  componentDidUpdate() {
+    localStorage.setItem("todo", JSON.stringify(this.state.todo));
+  }
+
+  componentDidMount() {
+    const todos = JSON.parse(localStorage.getItem("todo"));
+    if (todos.length > 0) {
+      this.setState({
+        todo: [...todos],
+      });
+    }
+  }
+
   handleClick = (task) => {
     if (task != "")
       this.setState({
@@ -46,7 +59,6 @@ class App extends React.Component {
   };
 
   updateTodoValue = (id, value) => {
-    console.log(id, value);
     this.setState({
       todo: this.state.todo.map((item) => {
         if (item.id == id) item.todo = value;
@@ -54,6 +66,7 @@ class App extends React.Component {
       }),
     });
   };
+
   render() {
     return (
       <div>
