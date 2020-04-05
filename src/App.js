@@ -45,6 +45,15 @@ class App extends React.Component {
     });
   };
 
+  updateTodoValue = (id, value) => {
+    console.log(id, value);
+    this.setState({
+      todo: this.state.todo.map((item) => {
+        if (item.id == id) item.todo = value;
+        return item;
+      }),
+    });
+  };
   render() {
     return (
       <div>
@@ -53,6 +62,7 @@ class App extends React.Component {
           taskDetails={this.state.todo}
           handleCheckBox={this.updateCheckBox}
           deleteTask={this.deleteTask}
+          updateStateValue={this.updateTodoValue}
         />
       </div>
     );

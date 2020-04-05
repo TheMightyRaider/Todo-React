@@ -11,6 +11,7 @@ class Todo extends React.Component {
         completed={todo.completed}
         markComplete={this.props.handleCheckBox}
         removeTask={this.props.deleteTask}
+        updateGlobalStateValue={this.props.updateStateValue}
       />
     ));
   }
