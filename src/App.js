@@ -39,6 +39,12 @@ class App extends React.Component {
     });
   };
 
+  deleteTask = (id) => {
+    this.setState({
+      todo: this.state.todo.filter((item) => item.id != id),
+    });
+  };
+
   render() {
     return (
       <div>
@@ -46,6 +52,7 @@ class App extends React.Component {
         <Todo
           taskDetails={this.state.todo}
           handleCheckBox={this.updateCheckBox}
+          deleteTask={this.deleteTask}
         />
       </div>
     );

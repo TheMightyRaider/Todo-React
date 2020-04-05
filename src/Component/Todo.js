@@ -10,6 +10,7 @@ class Todo extends React.Component {
         task={todo.todo}
         completed={todo.completed}
         markComplete={this.props.handleCheckBox}
+        removeTask={this.props.deleteTask}
       />
     ));
   }

@@ -5,6 +5,10 @@ class Todoitems extends React.Component {
     this.props.markComplete(e.target.checked, e.target.id);
   };
 
+  passTheIdToDeleteTheTask = (e) => {
+    this.props.removeTask(e.target.id);
+  };
+
   render() {
     return (
       <div>
@@ -14,6 +18,13 @@ class Todoitems extends React.Component {
           id={this.props.id}
           onChange={this.handleChange}
         ></input>
+        <button
+          name="delete"
+          id={this.props.id}
+          onClick={this.passTheIdToDeleteTheTask}
+        >
+          Delete
+        </button>
       </div>
     );
   }
