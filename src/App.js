@@ -23,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const todos = JSON.parse(localStorage.getItem("todo"));
-    if (todos.length > 0) {
+    if (todos != null && todos.length > 0) {
       this.setState({
         todo: [...todos],
       });
