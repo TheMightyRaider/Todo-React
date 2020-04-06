@@ -21,12 +21,36 @@ class SearchItem extends React.Component {
   };
 
   updateTaskOnEnterOrSubmit = (e) => {
-    if (e.which == 13 || e.type == "click")
+    if ((e.which <= 90 && e.which >= 48) || e.which == 8 || e.type == "click") {
+      if ((e.target.name = "search")) {
+        if (e.target.value == "") {
+          this.props.startedTyping(false);
+          this.setState({
+            matchedItem: [],
+          });
+        } else {
+          this.props.startedTyping(true);
+          this.setState({
+            matchedItem: this.props.taskList
+              .map((taskObj) => {
+                if (
+                  taskObj.todo
+                    .toUpperCase()
+                    .indexOf(this.state.value.toUpperCase()) != -1
+                ) {
+                  return taskObj;
+                }
+              })
+              .filter((item) => item != undefined),
+          });
+        }
+      }
+    }
+    if (e.which == "13" || e.type == "click") {
       this.setState({
-        matchedItem: this.props.taskList.filter(
-          (taskObj) => taskObj.todo == this.state.value
-        ),
+        value: "",
       });
+    }
   };
 
   render() {
@@ -36,6 +60,7 @@ class SearchItem extends React.Component {
         <input
           type="text"
           name="search"
+          value={this.state.value}
           onChange={this.updateValue}
           onKeyUp={this.updateTaskOnEnterOrSubmit}
         ></input>
@@ -44,11 +69,11 @@ class SearchItem extends React.Component {
         </button>
         <br></br>
         <br></br>
-
         {this.state.matchedItem.length > 0 ? (
           <div>
             <h3>Matching Result</h3>
             <Todo
+              class="searchTask"
               taskDetails={this.state.matchedItem}
               handleCheckBox={this.props.checkBoxUpdatedWhileSearching}
               deleteTask={this.removeTask}

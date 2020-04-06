@@ -13,7 +13,7 @@ class App extends React.Component {
       completed: Boolean
     }]
     */
-
+    typing: false,
     todo: [],
   };
 
@@ -72,6 +72,12 @@ class App extends React.Component {
     });
   };
 
+  hideAllTask = (boolean) => {
+    this.setState({
+      typing: boolean,
+    });
+  };
+
   render() {
     return (
       <div>
@@ -80,11 +86,13 @@ class App extends React.Component {
           checkBoxUpdatedWhileSearching={this.updateCheckBox}
           removeATask={this.deleteTask}
           taskUpdatedWhileSearching={this.updateTodoValue}
+          startedTyping={this.hideAllTask}
         />
         <br></br>
         <h3>Add Task</h3>
         <Addtodo addTask={this.handleClick} />
         <Todo
+          cssStyle={this.state.typing}
           taskDetails={this.state.todo}
           handleCheckBox={this.updateCheckBox}
           deleteTask={this.deleteTask}

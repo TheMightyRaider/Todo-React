@@ -26,6 +26,7 @@ class Addtodo extends React.Component {
         <input
           type="text"
           name="todo"
+          value={this.state.title}
           onChange={this.handleChange}
           onKeyUp={this.handleClick}
         ></input>
