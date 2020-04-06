@@ -40,12 +40,16 @@ class App extends React.Component {
   };
 
   updateCheckBox = (boolean, id) => {
-    let updatedItems = this.state.todo.map((item) => {
-      if (item.id == id) {
-        item.completed = boolean;
-      }
-      return item;
-    });
+    let updatedItems = this.state.todo
+      .map((item) => {
+        if (item.id == id) {
+          item.completed = boolean;
+        }
+        return item;
+      })
+      .sort((firstItem, secondItem) => {
+        return firstItem.completed - secondItem.completed;
+      });
 
     this.setState({
       todo: [...updatedItems],
