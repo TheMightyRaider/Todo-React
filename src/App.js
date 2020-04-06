@@ -1,6 +1,7 @@
 import React from "react";
 import Addtodo from "./Component/Addtodo";
 import Todo from "./Component/Todo";
+import SearchItem from "./Component/Searchitem.js";
 import "./App.css";
 
 class App extends React.Component {
@@ -74,6 +75,14 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <SearchItem
+          taskList={this.state.todo}
+          checkBoxUpdatedWhileSearching={this.updateCheckBox}
+          removeATask={this.deleteTask}
+          taskUpdatedWhileSearching={this.updateTodoValue}
+        />
+        <br></br>
+        <h3>Add Task</h3>
         <Addtodo addTask={this.handleClick} />
         <Todo
           taskDetails={this.state.todo}
