@@ -22,8 +22,30 @@
   color: #61dafb;
 }
 
+button {
+  display: inline-block;
+  padding: 0.35em 1.2em;
+  border: 0.1em solid #ffffff;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.12em;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Roboto", sans-serif;
+  font-weight: 300;
+  color: white;
+  background-color: darkslateblue;
+  text-align: center;
+  transition: all 0.2s;
+}
+
+button:hover {
+  color: #000000;
+  background-color: darkgrey;
+}
+
 .main {
   border-style: solid;
+  background-color: whitesmoke;
   text-align: center;
   display: inline-block;
   position: fixed;
@@ -34,4 +56,13 @@
   width: 500px;
   height: 500px;
   margin: auto;
+  opacity: 0.9;
+}
+
+body {
+  background-color: lavenderblush;
+  background-image: url("https://images.squarespace-cdn.com/content/550c6978e4b0c1da40fd1208/1541615714652-2BCR3Y3BU5X4U7KYMT5R/that%27s + it + done + logo-01.png?format=1500w&content-type=image%2Fpng");
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: 150px;
 }

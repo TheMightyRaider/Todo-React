@@ -1,5 +1,6 @@
 import React from "react";
 import Todo from "./Todo.js";
+import "../App.css";
 
 class SearchItem extends React.Component {
   state = {
@@ -35,7 +36,7 @@ class SearchItem extends React.Component {
   };
 
   updateTaskOnEnterOrSubmit = (e) => {
-    if ((e.which <= 90 && e.which >= 48) || e.which == 8 || e.type == "click") {
+    if ((e.which <= 90 && e.which >= 48) || e.which == 8) {
       if ((e.target.name = "search")) {
         if (e.target.value == "") {
           this.props.startedTyping(false);
@@ -81,7 +82,7 @@ class SearchItem extends React.Component {
   render() {
     return (
       <div>
-        <h3>Search</h3>
+        <h3>External Storage to your MIND XD</h3>
         <input
           type="text"
           name="search"
@@ -132,7 +133,12 @@ let CheckifItsANewTask = (props) => {
     if (props.checkIfTheButtonIsEnabled != "enable") {
       props.enable("true");
     }
-    return <h3>Wanna Add Item?, Click Add Task</h3>;
+    return (
+      <div>
+        <h3>Oooo, Someone is gonna get more busy,</h3>
+        <h3>Wanna add this task? Click AddTask</h3>
+      </div>
+    );
   } else {
     return null;
   }
