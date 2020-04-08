@@ -3,8 +3,10 @@ import Todo from "./Todo.js";
 
 class SearchItem extends React.Component {
   state = {
+    typing: false,
     value: "",
     matchedItem: [],
+    button: "",
   };
 
   addTask = (e) => {
@@ -14,6 +16,7 @@ class SearchItem extends React.Component {
       this.setState({
         value: "",
         matchedItem: [],
+        typing: false,
       });
     }
   };
@@ -37,11 +40,14 @@ class SearchItem extends React.Component {
         if (e.target.value == "") {
           this.props.startedTyping(false);
           this.setState({
+            button: "",
             matchedItem: [],
+            typing: false,
           });
         } else {
           this.props.startedTyping(true);
           this.setState({
+            typing: true,
             matchedItem: this.props.taskList
               .map((taskObj) => {
                 if (
@@ -64,6 +70,14 @@ class SearchItem extends React.Component {
     }
   };
 
+  enableButton = (boolean) => {
+    if (boolean) {
+      this.setState({
+        button: "enable",
+      });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -78,12 +92,17 @@ class SearchItem extends React.Component {
         <button name="search" onClick={this.updateTaskOnEnterOrSubmit}>
           Search
         </button>
-        <button name="addTask" onClick={this.addTask}>
+        <button
+          name="addTask"
+          onClick={this.addTask}
+          disabled={!this.state.button}
+        >
           AddTask
         </button>
         <br></br>
         <br></br>
-        {this.state.matchedItem.length > 0 ? (
+
+        {this.state.matchedItem.length > 0 && this.state.typing ? (
           <div>
             <h3>Matching Result</h3>
             <Todo
@@ -94,10 +113,29 @@ class SearchItem extends React.Component {
               updateStateValue={this.props.taskUpdatedWhileSearching}
             />
           </div>
-        ) : null}
+        ) : (
+          <CheckifItsANewTask
+            item={this.state.matchedItem}
+            typing={this.state.typing}
+            stopTyping={this.stopTyping}
+            checkIfTheButtonIsEnabled={this.state.button}
+            enable={this.enableButton}
+          />
+        )}
       </div>
     );
   }
 }
+
+let CheckifItsANewTask = (props) => {
+  if (props.typing) {
+    if (props.checkIfTheButtonIsEnabled != "enable") {
+      props.enable("true");
+    }
+    return <h3>Wanna Add Item?, Click Add Task</h3>;
+  } else {
+    return null;
+  }
+};
 
 export default SearchItem;
