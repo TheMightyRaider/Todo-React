@@ -1,5 +1,4 @@
 import React from "react";
-import Addtodo from "./Component/Addtodo";
 import Todo from "./Component/Todo";
 import SearchItem from "./Component/Searchitem.js";
 import "./App.css";
@@ -64,12 +63,16 @@ class App extends React.Component {
   };
 
   updateTodoValue = (id, value) => {
-    this.setState({
-      todo: this.state.todo.map((item) => {
-        if (item.id == id) item.todo = value;
-        return item;
-      }),
-    });
+    if (value != "") {
+      this.setState({
+        todo: this.state.todo.map((item) => {
+          if (item.id == id) item.todo = value;
+          return item;
+        }),
+      });
+    } else {
+      this.deleteTask(id);
+    }
   };
 
   hideAllTask = (boolean) => {
@@ -80,17 +83,19 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="main">
         <SearchItem
           taskList={this.state.todo}
           checkBoxUpdatedWhileSearching={this.updateCheckBox}
           removeATask={this.deleteTask}
           taskUpdatedWhileSearching={this.updateTodoValue}
+          addTask={this.handleClick}
           startedTyping={this.hideAllTask}
         />
         <br></br>
-        <h3>Add Task</h3>
-        <Addtodo addTask={this.handleClick} />
+        {this.state.todo.length <= 0 || this.state.typing ? null : (
+          <h3>What have I got?</h3>
+        )}
         <Todo
           cssStyle={this.state.typing}
           taskDetails={this.state.todo}

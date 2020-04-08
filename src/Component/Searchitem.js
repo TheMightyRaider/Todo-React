@@ -7,6 +7,17 @@ class SearchItem extends React.Component {
     matchedItem: [],
   };
 
+  addTask = (e) => {
+    if (e.which == "13" || e.type == "click") {
+      this.props.startedTyping(false);
+      this.props.addTask(this.state.value);
+      this.setState({
+        value: "",
+        matchedItem: [],
+      });
+    }
+  };
+
   removeTask = (id) => {
     this.setState({
       matchedItem: this.state.matchedItem.filter((item) => item.id != id),
@@ -66,6 +77,9 @@ class SearchItem extends React.Component {
         ></input>
         <button name="search" onClick={this.updateTaskOnEnterOrSubmit}>
           Search
+        </button>
+        <button name="addTask" onClick={this.addTask}>
+          AddTask
         </button>
         <br></br>
         <br></br>
