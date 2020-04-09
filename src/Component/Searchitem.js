@@ -11,7 +11,7 @@ class SearchItem extends React.Component {
   };
 
   addTask = (e) => {
-    if (e.which == "13" || e.type == "click") {
+    if (e.entered || e.type == "click") {
       this.props.startedTyping(false);
       this.props.addTask(this.state.value);
       this.setState({
@@ -37,34 +37,33 @@ class SearchItem extends React.Component {
 
   updateTaskOnEnterOrSubmit = (e) => {
     if ((e.which <= 90 && e.which >= 48) || e.which == 8) {
-      if ((e.target.name = "search")) {
-        if (e.target.value == "") {
-          this.props.startedTyping(false);
-          this.setState({
-            button: "",
-            matchedItem: [],
-            typing: false,
-          });
-        } else {
-          this.props.startedTyping(true);
-          this.setState({
-            typing: true,
-            matchedItem: this.props.taskList
-              .map((taskObj) => {
-                if (
-                  taskObj.todo
-                    .toUpperCase()
-                    .indexOf(this.state.value.toUpperCase()) != -1
-                ) {
-                  return taskObj;
-                }
-              })
-              .filter((item) => item != undefined),
-          });
-        }
+      if (e.target.value == "") {
+        this.props.startedTyping(false);
+        this.setState({
+          button: "",
+          matchedItem: [],
+          typing: false,
+        });
+      } else {
+        this.props.startedTyping(true);
+        this.setState({
+          typing: true,
+          matchedItem: this.props.taskList
+            .map((taskObj) => {
+              if (
+                taskObj.todo
+                  .toUpperCase()
+                  .indexOf(this.state.value.toUpperCase()) != -1
+              ) {
+                return taskObj;
+              }
+            })
+            .filter((item) => item != undefined),
+        });
       }
     }
     if (e.which == "13" || e.type == "click") {
+      this.addTask({ entered: true });
       this.setState({
         value: "",
       });
@@ -90,9 +89,6 @@ class SearchItem extends React.Component {
           onChange={this.updateValue}
           onKeyUp={this.updateTaskOnEnterOrSubmit}
         ></input>
-        <button name="search" onClick={this.updateTaskOnEnterOrSubmit}>
-          Search
-        </button>
         <button
           name="addTask"
           onClick={this.addTask}
@@ -136,7 +132,7 @@ let CheckifItsANewTask = (props) => {
     return (
       <div>
         <h3>Oooo, Someone is gonna get more busy,</h3>
-        <h3>Wanna add this task? Click AddTask</h3>
+        <h3>Wanna add this task? Press *Enter* or Click *AddTask*</h3>
       </div>
     );
   } else {

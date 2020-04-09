@@ -4,6 +4,7 @@ class Todoitems extends React.Component {
   state = {
     id: "",
     value: "",
+    enableEdit: "true",
   };
 
   componentDidMount() {
@@ -13,8 +14,17 @@ class Todoitems extends React.Component {
     });
   }
 
+  enableEditOnInput = () => {
+    this.setState({
+      enableEdit: "",
+    });
+  };
+
   modifyGlobalStateValue = () => {
     this.props.updateGlobalStateValue(this.state.id, this.state.value);
+    this.setState({
+      enableEdit: "true",
+    });
   };
 
   updateValue = (e) => {
@@ -34,25 +44,38 @@ class Todoitems extends React.Component {
   render() {
     return (
       <div>
-        <input
-          type="text"
-          value={this.state.value}
-          onChange={this.updateValue}
-          onBlur={this.modifyGlobalStateValue}
-        ></input>
-        <input
-          type="checkBox"
-          id={this.props.id}
-          checked={this.props.completed}
-          onChange={this.handleChange}
-        ></input>
-        <button
-          name="delete"
-          id={this.props.id}
-          onClick={this.passTheIdToDeleteTheTask}
-        >
-          Delete
-        </button>
+        <p>
+          <label
+            name="displayTask"
+            className={this.state.enableEdit ? "hideTodoItems" : "todoItems"}
+          >
+            {this.state.value}
+          </label>
+          <input
+            className={this.state.enableEdit ? "todoItems" : "hideTodoItems"}
+            type="text"
+            value={this.state.value}
+            onChange={this.updateValue}
+            onBlur={this.modifyGlobalStateValue}
+            disabled={this.state.enableEdit}
+          ></input>
+          <input
+            type="checkBox"
+            id={this.props.id}
+            checked={this.props.completed}
+            onChange={this.handleChange}
+          ></input>
+          <button name="edit" onClick={this.enableEditOnInput}>
+            Edit
+          </button>
+          <button
+            name="delete"
+            id={this.props.id}
+            onClick={this.passTheIdToDeleteTheTask}
+          >
+            Delete
+          </button>
+        </p>
       </div>
     );
   }

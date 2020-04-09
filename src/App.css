@@ -64,5 +64,13 @@ body {
   background-image: url("https://images.squarespace-cdn.com/content/550c6978e4b0c1da40fd1208/1541615714652-2BCR3Y3BU5X4U7KYMT5R/that%27s + it + done + logo-01.png?format=1500w&content-type=image%2Fpng");
   background-repeat: no-repeat;
   background-position-x: center;
-  background-position-y: 150px;
+  background-position-y: 160px;
+}
+
+.todoItems {
+  display: none;
+}
+
+.hideTodoItems {
+  display: inline;
 }
